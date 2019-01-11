@@ -1,0 +1,37 @@
+/* html,body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    z-index: 5;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.1;
+    -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    -ms-transition: all 2s;
+    -o-transition: all 2s;
+    transition: all 2s;
+}
+body:hover{
+    opacity: 1;
+}
+body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+} */
+
+
+body{
+    background: url("http://wx1.sinaimg.cn/large/0062Ep7ely1fz1m3njxk1j31hc0u0k79.jpg") no-repeat ;
+    background-attachment:fixed;
+    -webkit-animation: dd 100s linear infinite;
+    -moz-animation: dd 100s linear infinite;
+    -o-animation: dd 100s linear infinite;
+    animation: dd 100s linear infinite;
+    background-size: cover;
+}

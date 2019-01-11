@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1></h1>
+    <div >
+        <div class="row">
+
+            <div class="col-md-2" >
+                <ul class="list-group" style="text-align: center">
+
+                  <li class="list-group-item" id="item_1"><img src="{{ book.book_img }}" width="120" height="150"></li>
+
+                </ul>
+            </div>
+            <div class="col-md-10" >
+                <ul class="list-group" >
+                  <li class="list-group-item" id="item_1"><h2>{{ book.book_name }}</h2>作者:{{ book.book_writer }}</li>
+                  <li class="list-group-item" id="item_1">{{ book.book_desc }}</li>
+                </ul>
+
+
+            </div>
+        </div>
+        {% if page == 1 %}
+        <a>当前第({{ page }})页</a>&nbsp;&nbsp;
+        <a href="{{ url_for('book_browse', id=book.id, page= page +1) }}">下一页</a>
+
+        {% elif 1< page < count_page %}
+        <a href="{{ url_for('book_browse', id=book.id, page= page -1) }}">上一页</a>&nbsp;&nbsp;
+        <a>当前第({{ page }})页</a>&nbsp;&nbsp;
+        <a href="{{ url_for('book_browse', id=book.id, page= page +1) }}">下一页</a>
+
+        {% elif page >= count_page %}
+        <a href="{{ url_for('book_browse', id=book.id, page= page -1) }}">上一页</a>&nbsp;&nbsp;
+        <a>当前第({{ page }})页</a>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-12" >
+            {% for booksection in booksections.items %}
+                <ul class="list-group" style="text-align: center">
+                  <li class="list-group-item" id="item_1"><a href="{{ url_for('book_content', id=booksection.id) }}" >{{booksection.section_title}}</a></li>
+                </ul>
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

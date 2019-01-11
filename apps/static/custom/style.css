@@ -1,0 +1,135 @@
+body a {
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+html, body{
+    font-size: 100%;
+	font-family: 'Roboto', sans-serif;
+}
+body{
+	background:#FFFFFF;
+
+}
+body a:hover {
+    text-decoration: none;
+}
+
+.navbar-default {
+    background: none;
+    border: none;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.navbar-collapse {
+    padding: 0;
+    box-shadow: none;
+}
+
+.myweb-logo h2{
+	margin:0;
+}
+.myweb-logo h2 a {
+    font-size: 1em;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar-nav {
+    float: right;
+    margin: 0;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    border: solid 2px rgba(255, 255, 255, 0);
+    border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-ms-border-radius: 30px;
+	-o-border-radius: 30px;
+	-moz-border-radius: 30px;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #fff;
+	border: solid 2px #ff5301;
+	background:#ff5301;
+}
+
+.navbar-nav > li > a {
+    font-size: 1em;
+    padding: .5em 1.5em;
+    margin-right: 5px;
+}
+.navbar-default .navbar-nav > a, .navbar-default .navbar-nav > a:hover, .navbar-default .navbar-nav > a:focus {
+    color: #fff;
+    background: none;
+    border: solid 2px #ff5301;
+    border-radius: 30px;
+    background: #ff5301;
+}
+
+.banner{
+    background: url(http://ws2.sinaimg.cn/large/0062Ep7ely1fz1m3nw8ukj30zk0cztgj.jpg) repeat-x;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    position: relative;
+    padding: 0.1em 0 0.1em;
+}
+/* show-style-size---------------------------------------------------------- */
+@media(max-width:1440px){
+	.banner {
+		background: url(http://ws2.sinaimg.cn/large/0062Ep7ely1fz1m3nw8ukj30zk0cztgj.jpg) repeat-x;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		-ms-background-size: cover;
+	}
+}
+
+@media(max-width:991px){
+	.navbar-nav > li > a {
+		padding: .5em 1em;
+	}
+}
+@media(max-width:736px){
+	.navbar-collapse {
+		text-align: center;
+	}
+	.navbar-nav {
+	    float: none;
+		background: rgba(0, 0, 0, 0.39);
+	}
+	.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+		background: none;
+	}
+	.navbar-default .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+}
+
+@media(max-width:480px){
+	.banner {
+		background: url(http://ws2.sinaimg.cn/large/0062Ep7ely1fz1m3n9tv0j33ae2bcb29.jpg) repeat-x;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		-ms-background-size: cover;
+	}
+}
+
+@media(max-width:320px){
+	.banner {
+		padding: 0.1em 0 0.1em;
+	}
+}

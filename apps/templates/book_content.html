@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1></h1>
+    <div >
+
+
+        <div class="col-md-12" >
+            <ul class="list-group">
+
+              <li class="list-group-item" id="item_1"><a>{{bookcontent.content}}</a></li>
+
+            </ul>
+        </div>
+
+        <ul class="list-group" style="text-align: center">
+          {% if id == 1 %}
+          <a>当前第({{ id }})章</a>&nbsp;&nbsp;
+          <a href="{{ url_for('book_content', id=id+1)}}" >下一章</a>
+          {% else %}
+          <a href="{{ url_for('book_content', id=id-1)}}" >上一章</a>&nbsp;&nbsp;
+          <a>当前第({{ id }})章</a>&nbsp;&nbsp;
+          <a href="{{ url_for('book_content', id=id+1)}}" >下一章</a>
+          {% endif %}
+        </ul>
+
+    </div>
+
+{% endblock %}

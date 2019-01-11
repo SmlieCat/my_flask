@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>听风的博客</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='custom/myphotostyle.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='custom/myphototitlestyle.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='custom/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='custom/bg_style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='custom/rocketTop.css') }}" rel="stylesheet">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+
+
+    {% block css_style %}
+
+    {% endblock %}
+
+  </head>
+
+
+  <body>
+      <h1></h1>
+  		<div class="container">
+            <div class="banner">
+            	<div class="header">
+                    <nav class="navbar navbar-default" style="margin-top: 10px">
+                      <div class="container-fluid">
+
+				        <div class="navbar-header">
+      					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      						<span class="sr-only">Toggle navigation</span>
+      						<span class="icon-bar"></span>
+      						<span class="icon-bar"></span>
+      						<span class="icon-bar"></span>
+      					  </button>
+                          <div class="myweb-logo">
+                              <h2><a href="index.html">听风博客</a></h2>
+                          </div>
+      					</div>
+
+  					    <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+  						<nav>
+  							<ul class="nav navbar-nav">
+                                <li id="nav-1"><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                                <li id="nav-6"><a href="{{ url_for('album_list', page=1) }}"><span class="glyphicon glyphicon-picture"> 相册</a></li>
+                                <li id="nav-7"><a href="{{ url_for('article_list', page=1) }}"><span class="glyphicon glyphicon-pencil"></span> 随笔</a></li>
+                                <li id="nav-8"><a href="{{ url_for('user_music') }}" target='_blank'><span class="glyphicon glyphicon-music"></span> 音乐</a></li>
+                                <li id="nav-9"><a href="{{ url_for('book_list') }}"><span class="glyphicon glyphicon-book"></span> 阅读</a></li>
+                                <li id="nav-10"><a href="{{ url_for('about_me', page=1) }}"><span class="glyphicon glyphicon-send"> 关于</a></li>
+                                {% if 'user_name' in session %}
+                                    <li id="nav-2"><a href="{{ url_for('user_center') }}"><span class=" glyphicon glyphicon-user"></span> 个人中心</a></li>
+                                    <li id="nav-3"><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
+                                {% else %}
+                                    <li id="nav-4"><a href="{{ url_for('user_login') }}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                                    <li id="nav-5"><a href="{{ url_for('user_regist') }}"><span class="glyphicon glyphicon-check"></span> 注册</a></li>
+                                {% endif %}
+                            </ul>
+  						</nav>
+  					    </div>
+
+  				      </div>
+                    </nav>
+
+  			 </div>
+  		</div>
+
+        {% block content %}
+
+        {% endblock %}
+  	</div>
+
+    <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ url_for('static', filename='custom/rocketTop.js') }}"></script>
+    {% block js_code %}
+
+    {% endblock %}
+
+    <script type="text/javascript">
+    jQuery(function(){
+    jQuery('#loading-one').empty().append('页面加载完毕.').parent().fadeOut('slow');
+    });
+    </script>
+
+    <div id="loading" style="position:fixed !important;position:absolute;top:0;left:0;height:100%; width:100%; z-index:999; background:#000
+    url({{ url_for('static',filename='images/loading.gif') }}) no-repeat center;
+    opacity:0.6; filter:alpha(opacity=60);font-size:14px; line-height:20px;" onclick="javascript:turnoff('loading')">
+    <p id="loading-one" style="color:#fff;position:absolute; top:50%; left:50%; margin:50px 0 0 -50px;
+    padding:3px 10px;" onclick="javascript:turnoff('loading')">页面载入中,请稍后...</p>
+    </div>
+
+
+    <div id="shape">
+        <div class="shapeColor">
+            <div class="shapeFly">
+            </div>
+        </div>
+    </div>
+
+
+
+  </body>
+</html>

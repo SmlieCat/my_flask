@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link href="{{ url_for('static',
+filename='custom/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<h1></h1>
+    <div >
+        <div class="col-md-12" >
+            <ul class="list-group" style="text-align: center">
+
+              <li class="list-group-item" id="item_1"><h2>{{article.article_title|safe}}</h2><small>
+                  时间:{{ article.addtime }}
+                  &nbsp;/&nbsp;作者:{{article.article_writer}}&nbsp;/&nbsp;{{ article.click_num }}人阅读</small></li>
+
+
+            </ul>
+        </div>
+
+        <div class="col-md-12" >
+            <ul class="list-group" >
+
+              <li class="list-group-item" id="item_1">{{article.article_text|safe}}</li>
+
+            </ul>
+        </div>
+
+         <a href="#" class="text-lg">回到顶部</a>
+    </div>
+
+{% endblock %}

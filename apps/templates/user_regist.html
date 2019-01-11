@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" role="form" class="col-md-6 col-md-offset-3"
+        enctype="multipart/form-data">
+        <div class="form_group">
+            {{ form.user_name.label }}
+            {{ form.user_name }}
+            {% for err in form.user_name.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+        <div class="form_group">
+            {{ form.user_password.label }}
+            {{ form.user_password }}
+            {% for err in form.user_password.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+        <div class="form_group">
+            {{ form.user_password2.label }}
+            {{ form.user_password2 }}
+            {% for err in form.user_password2.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+        <div class="form_group">
+            {{ form.user_email.label }}
+            {{ form.user_email }}
+            {% for err in form.user_email.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+        <div class="form_group">
+            {{ form.user_phone.label }}
+            {{ form.user_phone }}
+            {% for err in form.user_phone.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+        <div class="form_group">
+            {{ form.user_sign.label }}
+            {{ form.user_sign }}
+            {% for err in form.user_sign.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+
+        <div class="form_group">
+            {{ form.user_face.label }}
+            {{ form.user_face }}
+            {% for err in form.user_face.errors %}
+            <h5 style="color: red">{{ err }}</h5>
+            {% endfor %}
+        </div>
+
+
+        <div class="form_group">
+            {{ form.csrf_token }}
+            {{ form.submit }}
+        </div>
+        {% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+        <p style="color: red">{{message}}</p>
+        {% endfor %}
+        {% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+        <p style="color: green">{{message}}</p>
+        {% endfor %}
+    </form>
+
+{% endblock %}
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#nav-5').addClass('active')
+
+</script>
+{% endblock %}

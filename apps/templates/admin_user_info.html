@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div >
+
+        {% include 'admin_menu.html' %}
+
+        <div class="col-md-10" >
+            <div class="jumbotron" style="padding-top: 1px">
+
+              <h3>人员信息</h3>
+              <hr >
+                {% for user in users %}
+                  <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            ID:{{user.id}}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;用户名:{{user.name}}
+                             &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;密码:{{user.password}}
+                            <hr>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+
+           </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_11').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+<p style="color: red">{{message}}</p>
+{% endfor %}
+{% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+<p style="color: green">{{message}}</p>
+{% endfor %}
+
+  <h1 class="page-header">创建相册</h1>
+
+  <div>
+  <form role="form" method="post" class="col-md-7 col-md-offset-2" >
+      <div class="form_group">
+          {{ form.album_title.label }}
+          {{ form.album_title }}
+          {% for err in form.album_title.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+      <div class="form_group">
+          {{ form.album_sign.label }}
+          {{ form.album_sign }}
+          {% for err in form.album_sign.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+      <div class="form_group">
+          {{ form.see_power.label }}
+          {{ form.see_power }}
+          {% for err in form.see_power.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.album_tag.label }}
+          {{ form.album_tag }}
+          {% for err in form.album_tag.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+
+      <div class="form_group">
+          {{ form.csrf_token }}
+          {{ form.submit }}
+      </div>
+  </form>
+</div>
+
+{% endblock %}
+
+
+{% block js_code %}
+
+{% endblock %}

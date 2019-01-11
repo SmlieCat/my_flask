@@ -1,0 +1,20 @@
+<div  style="padding: 20px 1%" class=" text-muted">
+
+            <ul class="list-group" >
+              <li class="list-group-item"><h3> {{ session.get('user_name') }}的个人中心</h3></li>
+            </ul>
+</div>
+
+
+<div class="col-md-2"  >
+    <ul class="list-group" style="text-align: center">
+      <li class="list-group-item" id="item_1"><a href="{{ url_for('user_detail') }}">我的个人信息</a></li>
+      <li class="list-group-item" id="item_2"><a href="{{ url_for('user_password') }}">修改个人密码</a></li>
+      <li class="list-group-item" id="item_3"><a href="{{ url_for('user_info') }}">修改个人资料</a></li>
+      <li class="list-group-item" id="item_4"><a href="{{ url_for('user_del') }}">注销个人账号</a></li>
+      <li class="list-group-item" id="item_5"><a href="{{ url_for('user_album_mine') }}">我上传的相册</a></li>
+      <li class="list-group-item" id="item_6"><a href="{{ url_for('user_album_favor') }}">我收藏的相册</a></li>
+      <li class="list-group-item" id="item_7"><a href="#">待定</a></li>
+      <li class="list-group-item" id="item_8"><a href="#">待定</a></li>
+    </ul>
+</div>

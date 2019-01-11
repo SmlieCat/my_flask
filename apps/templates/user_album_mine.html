@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+<div >
+    {% include 'user_menu.html' %}
+    <div class="col-md-10" >
+    <div class="jumbotron " style="padding-top: 1px" >
+
+      <h3>我上传的相册</h3>
+          <a href="{{ url_for('album_create') }}" style="display: inline-block" >
+          创建相册
+          </a>
+          <a href="{{ url_for('album_upload') }}" style="display: inline-block" >
+          更新相册
+          </a>
+
+      <hr >
+
+
+      <div class="container" >
+          {% for album in albums %}
+           <div class="col-md-4">
+              <div class="media-card">
+                  <div class="panel panel-body" style="display: block:padding: 3px;">
+                      <div class="card-title">
+                          <span style="font-size: large;font-weight: bold;color: #095c90" >
+                                  {{ album.title }}
+                          </span>
+                      </div>
+
+                  <div class="card-body" >
+                      <div class="card-image">
+
+                          <a href="{{ url_for('album_browse', id=album.id) }}" >
+                              <!-- style -->
+                              <div class="hovereffect">
+                              <img class="img-responsive " src="{{ album.titleurl }}" width="200", height="150" >
+
+                              </div>
+                          </a>
+
+                      </div>
+
+                  </div>
+
+                  </div>
+              </div>
+               </div>
+                {% endfor %}
+
+      </div>
+
+
+      </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_5').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

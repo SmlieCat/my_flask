@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+
+{% block css_style %}
+<link href="{{ url_for('static',
+filename='custom/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+
+ <div class="container">
+     <div class="col-md-8">
+         <h2 class="news-title">
+             {{ album.title }}
+         </h2>
+         <div class="news-status small class">
+             <span>
+                 <span class="avatar">
+                <img src="{{ face_url }}" alt="" class="img-circle visible-md-block visible-lg-block">
+                </span>
+                时间:{{ album.addtime }}
+            </span>
+             <span>/作者:{{ album.user.name }}</span>
+             <span>/浏览量:{{ album.click_num }}</span>
+             <span>/收藏量:{{ album.love_num }}</span>
+
+             <div id="btn-favor" class="btn btn-default btn-xs">
+                 <span class="glyphicon glyphicon-heart"></span>
+                 收藏
+             </div>
+         </div>
+
+         <div class="news-content">
+            <blockquote >
+                <p>
+                    {{ album.album_sign}}
+                </p>
+            </blockquote>
+            <div>
+                {% for photo in album.photos %}
+                <img class="img-responsive" src="{{photo.url}}" >
+                {% endfor %}
+            </div>
+         </div>
+         <a href="#" class="text-lg">回到顶部</a>
+     </div>
+
+
+     <div class="col-md-4 visible-md-block visible-lg-block">
+         <div class="side-bar-card">
+             <div class="card-title">相关推荐</div>
+             <div class="card-body">
+                 <div class="list">
+                     {% for item in recommd_albums %}
+                     <div class="item clearfix">
+                         <div class="col-xs-5 no-padding-h">
+                             <a href="{{ url_for('album_browse', id=item.id) }}">
+                                 <!-- style -->
+                                 <div class="hovereffecttitle">
+                                 <img src="{{item.url}}">
+                                </div>
+                              </a>
+                         </div>
+                         <div class="col-xs-7 ">
+                            <a href="{{ url_for('album_browse', id=item.id) }}">
+                                <div class="title">{{ item.title }}</div>
+                                <div class="desc">
+                                    {{ item.click_num }}浏览
+                                    {{ item.love_num }}收藏</div>
+                            </a>
+                         </div>
+                     </div>
+                     {% endfor %}
+
+                 </div>
+             </div>
+         </div>
+         <div class="side-bar-card">
+             {% if session['user_name'] %}
+             <div class="card-title">我的收藏</div>
+             <div class="card-body">
+                 {% else %}
+                 <a href="{{ url_for('user_login') }}"><div class="card-title">我的收藏</div>
+                 <div class="card-body"></a>
+                 {% endif %}
+                 {% if session['user_name'] %}
+                 <div class="list">
+                    {% for falbum in favor_albums %}
+                     <div class="item clearfix">
+                         <div class="col-xs-5 no-padding-h">
+                             <a href="{{ url_for('album_browse', id=falbum.id) }}">
+                            <!-- style -->
+                             <div class="hovereffecttitle">
+                                 <img src="{{ falbum.titleurl3 }}">
+                             </div>
+                              </a>
+                         </div>
+                         <div class="col-xs-7 ">
+                            <a href="{{ url_for('album_browse', id=1) }}">
+                                <div class="title">{{ falbum.title }}</div>
+                                <div class="desc">{{ falbum.click_num }}浏览
+                                    {{ falbum.love_num }}收藏</div>
+                            </a>
+                         </div>
+                     </div>
+                    {% endfor %}
+                 </div>
+                 {% endif %}
+
+             </div>
+         </div>
+
+     </div>
+ </div>
+
+
+
+{% endblock %}
+
+
+{% block js_code %}
+<script >
+    $(document).ready(function () {
+        $('#btn-favor').click(
+            function () {
+                var uid = {{ session.get('user_id', -1) }};
+                var aid = {{ album.id }};
+
+                if (uid == -1)
+                    alert('请登录再收藏');
+                else
+                    $.ajax({
+                    url: '{{ url_for('album_favor') }}',
+                    type: 'GET',
+                    data: 'aid=' + aid +'&uid=' + uid,
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.ok == 1)
+                            $('#btn-favor').text('收藏成功');
+                        else
+                            $('#btn-favor').text('^。^已经收藏过了!');
+                    }
+                })
+            }
+        )
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% import "macro_page.html" as paginator%}
+
+{% block content %}
+
+<div class="page-header">
+
+  <a style="display: inline-block; font-size: x-large;
+  margin: 5px 5px" href="{{ url_for("album_list", page=1) }}"><span class="label label-info">所有分类</span> </a>
+
+  {% for albumtag in albumtags %}
+  <a style="display: inline-block; font-size: large;
+    margin: 5px 5px" href="{{ url_for("album_list", page=1) }}?tag={{ albumtag.id }}">
+    {{ albumtag.name }}
+  </a>
+  {% endfor %}
+
+</div>
+
+<div class="container">
+    {% for album in albums.items %}
+    <div class="col-md-3">
+        <div class="media-card">
+            <div class="panel panel-body" style="display: block:padding: 3px;">
+                <div class="card-title">
+                    <span style="font-size: large;font-weight: bold;color: #095c90">
+                        {{ album.title }}
+                    </span>&nbsp;
+                    <span style="font-size: small;font-weight: 400;color: #095c90">
+                        {{ album.user.name }}
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-image">
+
+                        <a href="{{ url_for('album_browse', id=album.id) }}" >
+                            <!-- style -->
+                            <div class="hovereffect">
+                            <img class="img-responsive" src="{{ album.titleurl }}" width="240", height="150" >
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="card-status" style="font-size: small; font-weight: 500;color: #2c4762">
+                        <span class="badge">浏览量:{{ album.click_num }}</span>&nbsp;
+                        <span class="badge">收藏量:{{ album.love_num }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- page- -->
+    <div class="col-md-12 text-center">
+        {{ paginator.paginate(albums, 'album_list') }}
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block js_code %}
+
+{% endblock %}

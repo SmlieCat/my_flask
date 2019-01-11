@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div >
+
+        {% include 'user_menu.html' %}
+
+        <div class="col-md-10" >
+            <div class="jumbotron" style="padding-top: 1px">
+
+              <h3>个人资料详情</h3>
+              <hr >
+
+                  <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-9">
+
+                            <p><small>用户名:{{ user.name }}</small></p>
+                            <p><small>邮箱:{{ user.email }}</small></p>
+                            <p><small>联系方式:{{ user.phone }}</small></p>
+                            <p><small>个人签名:{{ user.sign }}</small></p>
+                        
+                        </div>
+                        <div class="col-md-3">
+                            <img src="{{ face_url }}"width="170" height="170"  class="img-thumbnail">
+                        </div>
+                    </div>
+
+                </div>
+
+
+           </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_1').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

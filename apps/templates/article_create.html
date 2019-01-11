@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+<p style="color: red">{{message}}</p>
+{% endfor %}
+{% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+<p style="color: green">{{message}}</p>
+{% endfor %}
+
+
+  <div class="col-md-7 col-md-offset-2" >
+      {% if showart %}
+
+      <ul class="list-group" >
+
+        <li class="list-group-item" id="item_1">标题:<h2>{{ showart.article_title|safe }}</h2></li>
+        <li class="list-group-item" id="item_1">创建日期:{{ showart.addtime|safe }}</li>
+        <li class="list-group-item" id="item_1">介绍:{{ showart.article_desc|safe }}</li>
+        <li class="list-group-item" id="item_1">正文:{{ showart.article_text|safe }}</li>
+
+      </ul>
+      {% endif %}
+  </div>
+
+  <form role="form" method="post" class="col-md-7 col-md-offset-2" >
+      <div class="form_group">
+          {{ form.article_title.label }}
+          {{ form.article_title }}
+          {% for err in form.article_title.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+      
+      <div class="form_group">
+          {{ form.article_img_url.label }}
+          {{ form.article_img_url }}
+          {% for err in form.article_img_url.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.article_desc.label }}
+          {{ form.article_desc }}
+          {% for err in form.article_desc.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+      <div class="form_group">
+          {{ form.see_power.label }}
+          {{ form.see_power }}
+          {% for err in form.see_power.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.article_tag.label }}
+          {{ form.article_tag }}
+          {% for err in form.article_tag.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.article_text.label }}
+          {{ form.article_text }}
+          {% for err in form.article_text.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.csrf_token }}
+          {{ form.submit }}
+      </div>
+  </form>
+
+
+{% endblock %}
+
+
+{% block js_code %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div >
+
+        {% include 'admin_menu.html' %}
+
+        <div class="col-md-10" >
+            <div class="jumbotron" style="padding-top: 1px">
+
+              <h3>文章管理</h3>
+              <hr >
+
+                  <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <a href="{{ url_for('article_create') }}" style="display: inline-block" class="btn btn-primary">
+                            创建文章
+                            </a>
+
+                            <a href="{{ url_for('article_list',page=1) }}" style="display: inline-block" class="btn btn-primary">
+                            文章列表
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+           </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_12').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

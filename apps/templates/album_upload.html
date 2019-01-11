@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <h1 class="page-header">更新相册</h1>
+
+  <div>
+  <form role="form" method="post" class="col-md-7 col-md-offset-2"  enctype="multipart/form-data">
+
+      <div class="form_group">
+          {{ form.album_title.label }}
+          {{ form.album_title }}
+          {% for err in form.album_title.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.album_photo.label }}
+          {{ form.album_photo }}
+          {% for err in form.album_photo.errors %}
+          <h5 style="color: red">{{ err }}</h5>
+          {% endfor %}
+      </div>
+
+      <div class="form_group">
+          {{ form.csrf_token }}
+          {{ form.submit }}
+      </div>
+
+  </form>
+</div>
+
+
+
+<div  class="col-md-7 col-md-offset-2">
+    {% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+    <p style="color: red">{{message}}</p>
+    {% endfor %}
+    {% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+    <p style="color: green">{{message}}</p>
+    {% endfor %}
+
+    {% if smallurl_list %}
+        {% for url in smallurl_list %}
+            <img src="{{ url }}" height="100">
+        {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block js_code %}
+
+{% endblock %}

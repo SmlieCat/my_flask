@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div >
+        {% include 'user_menu.html' %}
+
+        <div class="col-md-10" >
+
+            <div class="jumbotron" style="padding-top: 1px">
+              <h3>注销个人账户</h3>
+             <hr >
+
+             <form role="form"  method="post" >
+
+                 <div class="form_group">
+                     <label for="new_password2">请输入密码</label>
+                     <input type="password" id="new_password2" name="new_password2" class="form-control" required >
+                 </div>
+
+                 <div class="form_group">
+                     <input class="btn btn-primary" type="submit" id="btn btn-success" name="submit"
+                     value="注销">
+                 </div>
+                 {% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+                 <p style="color: red; font-size: 15px" >*{{message}}</p>
+                 {% endfor %}
+                 {% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+                 <p style="color: green; font-size: 15px" >*{{message}}</p>
+                 {% endfor %}
+             </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_4').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

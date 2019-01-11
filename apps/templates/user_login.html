@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" role="form" class="col-md-6 col-md-offset-3">
+    <div class="form_group">
+        <label for="user_name">{{ form.user_name.label }}</label>
+        {{ form.user_name(value=request.args.username) }}
+        {% for err in form.user_name.errors %}
+        <h4 style="color: red">{{ err }}</h4>
+        {% endfor %}
+    </div>
+    <div class="form_group">
+        <label for="user_password">{{ form.user_password.label }}</label>
+        {{ form.user_password }}
+        {% for err in form.user_password.errors %}
+        <h4 style="color: red">{{ err }}</h4>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{ form.csrf_token }}
+        {{ form.submit }}
+    </div>
+    {% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+    <p style="color: red">{{message}}</p>
+    {% endfor %}
+    {% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+    <p style="color: green">{{message}}</p>
+    {% endfor %}
+</form>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#nav-4').addClass('active')
+
+</script>
+{% endblock %}

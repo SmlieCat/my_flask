@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1></h1>
+
+
+<div class="container">
+{% for book in books %}
+<div class="col-md-3">
+    <div class="media-card" >
+        <div class="panel panel-body" style="display: block:padding: 3px;">
+            <div class="card-title">
+                <span style="font-size: large;font-weight: bold;color: #095c90">
+                    {{ book.book_name }}
+                </span>&nbsp;
+                <span style="font-size: small;font-weight: 500;color: #095c90">
+                    {{ book.book_writer }}
+                </span>
+            </div>
+
+            <div class="card-body">
+                <div class="card-image">
+
+                    <a href="{{ url_for('book_browse', id=book.id, page=1) }}" >
+                        <!-- style -->
+                        <div class="bookjpg">
+                        <img class="img-responsive" src="{{book.book_img}}" width="120" height="150" >
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+{% block js_code %}
+
+{% endblock %}

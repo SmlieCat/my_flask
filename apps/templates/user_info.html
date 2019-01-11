@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <div >
+        {% include 'user_menu.html' %}
+
+        <div class="col-md-10" >
+            <div class="jumbotron" style="padding-top: 1px">
+              <h3 >修改个人资料</h3>
+             <hr>
+
+              <form method="post" role="form" enctype="multipart/form-data">
+                  {% for message in get_flashed_messages(with_categories=Flase, category_filter=['err']) %}
+                  <p style="color: red">{{message}}</p>
+                  {% endfor %}
+                  {% for message in get_flashed_messages(with_categories=Flase, category_filter=['ok']) %}
+                  <p style="color: green">{{message}}</p>
+                  {% endfor %}
+                  <div class="form_group">
+                      {{ form.user_name.label }}
+                      {{ form.user_name(value=user.name) }}
+                      {% for err in form.user_name.errors %}
+                      <h5 style="color: red">{{ err }}</h5>
+                      {% endfor %}
+                  </div>
+
+                  <div class="form_group">
+                      {{ form.user_email.label }}
+                      {{ form.user_email(value=user.email) }}
+                      {% for err in form.user_email.errors %}
+                      <h5 style="color: red">{{ err }}</h5>
+                      {% endfor %}
+                  </div>
+                  <div class="form_group">
+                      {{ form.user_phone.label }}
+                      {{ form.user_phone(value=user.phone) }}
+                      {% for err in form.user_phone.errors %}
+                      <h5 style="color: red">{{ err }}</h5>
+                      {% endfor %}
+                  </div>
+                  <div class="form_group">
+                      {{ form.user_sign.label }}
+                      {{ form.user_sign }}
+                      {% for err in form.user_sign.errors %}
+                      <h5 style="color: red">{{ err }}</h5>
+                      {% endfor %}
+                  </div>
+                  <div class="form_group">
+                      {{ form.user_face.label }}
+                      {{ form.user_face(value=user.face) }}
+                      {% for err in form.user_face.errors %}
+                      <h4 style="color: red">{{ err }}</h4>
+                      {% endfor %}
+                  </div>
+                  <div class="form_group">
+                      {{ form.csrf_token }}
+                      {{ form.submit }}
+                  </div>
+          </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#item_3').addClass('list-group-item-warning')
+
+</script>
+{% endblock %}

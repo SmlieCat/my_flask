@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% import "macro_page.html" as paginator%}
+{% block content %}
+
+<h1></h1>
+<div class="page-header">
+
+  <a style="display: inline-block; font-size: x-large;
+  margin: 5px 5px" href="{{ url_for("article_list", page=1) }}"><span class="label label-info">所有分类</span> </a>
+
+  {% for articletag in articletags %}
+  <a style="display: inline-block; font-size: large;
+    margin: 5px 5px" href="{{ url_for("article_list", page=1) }}?tag={{ articletag.id }}">
+    {{ articletag.name }}
+  </a>
+  {% endfor %}
+
+</div>
+
+    <div >
+
+        {% for article in articles.items %}
+
+    		<div class="row">
+
+    			<div class="col-md-2 visible-lg-block visible-md-block" >
+    				<a href="{{ url_for('article_content', id=article.id) }}" >
+    				<img class="img-rounded" src="{{article.article_img_url}}"
+    				height="150" title="{{ article.article_title }}" ></a>
+    			</div>
+    			<div class="col-md-10" >
+
+    				<ul class="list-group" >
+    				  <li class="list-group-item" id="item_1"><a href="{{ url_for('article_content', id=article.id) }}" >
+                          <h2>{{ article.article_title }}</h2></a>
+                          <small>时间:{{ article.addtime }}&nbsp;/&nbsp;作者:{{article.article_writer}}
+                              &nbsp;/&nbsp;{{ article.click_num }}人阅读</small></li>
+    				  <li class="list-group-item" id="item_1">介绍</li>
+    				</ul>
+
+    			</div>
+    		</div>
+
+    	{% endfor %}
+        <!-- page- -->
+        <div class="col-md-12 text-center">
+            {{ paginator.paginate(articles, 'article_list') }}
+
+        </div>
+    </div>
+
+{% endblock %}

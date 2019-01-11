@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div >
+        {% include 'user_menu.html' %}
+        <div class="col-md-8" >
+            <div class="carousel-inner" style="max-width: 600px; max-height:600px">
+                <img src="{{imgs.img_url}}" alt="First slide" class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_code %}
+<script type="text/javascript">
+    $(document).ready(
+      function(){
+      }
+    );
+    $('#nav-2').addClass('active')
+
+</script>
+{% endblock %}
