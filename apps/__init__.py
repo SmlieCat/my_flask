@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 
-app.debug = False
+app.debug = True
 
 #对cook进行加密, os.urandom作为随机数发生器
 app.secret_key = os.urandom(24)
@@ -24,15 +24,11 @@ db = SQLAlchemy(app)
 
 #用户上传文件目录
 app.config['USERS_FILES'] = os.path.join(STATIC_DIR, 'users_files')
-#用户头像文件目录
-app.config['USERS_FACEFILES'] = os.path.join(app.config['USERS_FILES'], 'users_facefiles')
 
-#用户照片文件目录
-app.config['USERS_PHOTOS'] = os.path.join(app.config['USERS_FILES'], 'users_photos')
 
 #1.配置上传文件保存地址
-app.config['UPLOADED_FACE_DEST'] = app.config['USERS_FACEFILES']
-app.config['UPLOADED_PHOTO_DEST'] = app.config['USERS_PHOTOS']
+app.config['UPLOADED_FILE_DEST'] = app.config['USERS_FILES']
+
 
 #全局限制上传文件大小
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024

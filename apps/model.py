@@ -200,7 +200,7 @@ class AdminTag(db.Model):
 
 
 if __name__ == '__main__':
-    i = 0
+    i = 9
     if i == 0:
         #初始化数据库失败，切记循环引用问题
         db.drop_all()

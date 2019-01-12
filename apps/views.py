@@ -20,11 +20,11 @@ import random
 
 
 #2.产生UploadSet类对象实例,管理上传集合
-facephoto = UploadSet('face', IMAGES)
-albumphoto = UploadSet('photo', IMAGES)
+userfiles = UploadSet('file', IMAGES)
+
 #3.绑定app与UploadSet对象实例， app和Uploads协同工作
-configure_uploads(app, facephoto)
-configure_uploads(app, albumphoto)
+configure_uploads(app, userfiles)
+
 
 headers = {
         "Host": "www.biquge5200.cc",
@@ -123,12 +123,12 @@ def user_regist():
                 name = str(uuid4().hex) + fix
                 folder = user.uuid
                 try:
-                    fname = facephoto.save(storage=filestorage, folder=folder, name=name)
+                    fname = userfiles.save(storage=filestorage, folder=folder, name=name)
                     # 创建保存压缩图返回文件名
-                    fname_small = create_face(path=os.path.join(app.config['USERS_FACEFILES'], folder),
+                    fname_small = create_face(path=os.path.join(app.config['USERS_FILES'], folder),
                                                    filename=name, base_width=200)
 
-                    fpath = facephoto.path(fname)
+                    fpath = userfiles.path(fname)
                     os.remove(fpath)
                 except Exception as i:
                     print(i)
@@ -162,7 +162,7 @@ def user_detail():
 
     user = User.query.filter_by(name=session.get('user_name')).first()
 
-    face_url = facephoto.url(user.uuid + '/' + user.face)
+    face_url = userfiles.url(user.uuid + '/' + user.face)
 
     return render_template('user_detail.html', user=user, face_url=face_url)
 
@@ -212,27 +212,27 @@ def user_info():
 
         user.sign = form.user_sign.data
         filestorage = form.user_face.data
-
         try:
             # 头像文件名称
             if filestorage.filename != '':
                 folder = user.uuid
-
-                # 删除旧的
-                oldpath = facephoto.path(filename=folder + '/' + user.face)
-                print(oldpath)
-                os.remove(oldpath)
-
+                #旧的路径
+                oldpath = userfiles.path(filename=folder + '/' + user.face)
+                try:
+                    os.remove(oldpath)
+                except:
+                    pass
                 fix = '.' + str(filestorage.filename).split('.')[-1]
                 name = str(uuid4().hex) + fix
 
                 try:
-                    fname = facephoto.save(storage=filestorage, folder=folder, name=name)
+                    fname = userfiles.save(storage=filestorage, folder=folder, name=name)
+
                     # 创建保存压缩图返回文件名
-                    fname_small = create_face(path=os.path.join(app.config['USERS_FACEFILES'], folder),
+                    fname_small = create_face(path=os.path.join(app.config['USERS_FILES'], folder),
                                               filename=name, base_width=500)
 
-                    fpath = facephoto.path(fname)
+                    fpath = userfiles.path(fname)
                     os.remove(fpath)
                 except:
                     return render_template('404.html')
@@ -259,25 +259,21 @@ def user_del():
     if request.method == 'POST':
         password2 = request.form['new_password2']
         user = User.query.filter_by(name=session.get('user_name')).first()
-        albums = Album.query.filter_by(user_id=user.id).all()
-        #这个有没有不需要遍历单个数据，直接清除列表那种
-        for album in albums:
-            photos = Photo.query.filter_by(album_id=album.id).all()
-            for photo in photos:
-                db.session.delete(photo)
-                db.session.commit()
-            db.session.delete(album)
-            db.session.commit()
-
 
         if str(password2) == str(user.password):
-
+            albums = Album.query.filter_by(user_id=user.id).all()
+            for album in albums:
+                photos = Photo.query.filter_by(album_id=album.id).all()
+                for photo in photos:
+                    db.session.delete(photo)
+                    db.session.commit()
+                db.session.delete(album)
+                db.session.commit()
             #uuid没有保存到session,通过数据库获取即可
             #删除文件
-            del_path = os.path.join(app.config['USERS_FACEFILES'], str(user.uuid))
-            del_path2 = os.path.join(app.config['USERS_PHOTOS'], str(user.uuid))
+            del_path = os.path.join(app.config['USERS_FILES'], str(user.uuid))
+
             shutil.rmtree(del_path)
-            shutil.rmtree(del_path2)
             # 删除数据
             db.session.delete(user)
             db.session.commit()
@@ -328,7 +324,7 @@ def album_upload():
     form = AlubmUpload()
     #ps:2018.12.30 此处更改，针对个人查询
     albums = Album.query.filter_by(user_id=session.get('user_id')).all()
-    print(albums)
+
     form.album_title.choices = [(album.id, album.title) for album in albums]
 
     if form.validate_on_submit():
@@ -349,16 +345,17 @@ def album_upload():
                 name = uuid4().hex + fix
                 folder = user.uuid + '/' + album.title
                 try:
-                    pname = albumphoto.save(storage=filestorage, folder=folder, name=name)
-                    photo_name = pname.split('/')[-1]
+                    pname = userfiles.save(storage=filestorage, folder=folder, name=name)
+
+
                     # 创建保存缩略图返回文件名，并根据文件名获取url
-                    pname_small = create_thumbnail(path=os.path.join(app.config['USERS_PHOTOS'], folder),
-                                                   filename=photo_name, base_width=300)
-                    pname_smallurl = albumphoto.url(folder + '/' + pname_small)
+                    pname_small = create_thumbnail(path=os.path.join(app.config['USERS_FILES'], folder),
+                                                   filename=name, base_width=300)
+                    pname_smallurl = userfiles.url(folder + '/' + pname_small)
                     smallurl_list.append(pname_smallurl)
                     # 创建保存展示图返回文件名，并根据文件名获取url
-                    pname_show = create_show(path=os.path.join(app.config['USERS_PHOTOS'], folder),
-                                                   filename=photo_name, base_width=800)
+                    pname_show = create_show(path=os.path.join(app.config['USERS_FILES'], folder),
+                                                   filename=name, base_width=800)
 
                     #写入数据库
                     photo = Photo(name=pname, name_small=pname_small,
@@ -367,7 +364,7 @@ def album_upload():
                     db.session.commit()
 
                     #删除原图
-                    fpath = albumphoto.path(filename=pname)
+                    fpath = userfiles.path(filename=pname)
                     os.remove(fpath)
                     success += 1
                 except:
@@ -404,7 +401,7 @@ def album_list(page):
             title_uuid = album.photos[0].name
             folder = (os.path.split(title_uuid))[0] + '/' + title_photo
             global titleurl
-            titleurl = albumphoto.url(filename=folder)
+            titleurl = userfiles.url(filename=folder)
 
         except:
             pass
@@ -433,7 +430,7 @@ def album_browse(id):
             title_uuid = item.photos[0].name
             folder2 = (os.path.split(title_uuid))[0] + '/' + title_photo
             global titleurl
-            titleurl = albumphoto.url(filename=folder2)
+            titleurl = userfiles.url(filename=folder2)
         except:
             pass
         # 追加对象
@@ -452,7 +449,7 @@ def album_browse(id):
                 title_uuid3 = falbum.photos[0].name
                 folder3 = (os.path.split(title_uuid3))[0] + '/' + title_photo3
                 global titleurl3
-                titleurl3 = albumphoto.url(filename=folder3)
+                titleurl3 = userfiles.url(filename=folder3)
                 print(titleurl3)
             except:
                 pass
@@ -461,11 +458,11 @@ def album_browse(id):
 
 
     #头像
-    face_url = facephoto.url(album.user.uuid + '/' + album.user.face)
+    face_url = userfiles.url(album.user.uuid + '/' + album.user.face)
     for photo in album.photos:
         folder = (os.path.split(photo.name))[0] + '/' + photo.name_show
 
-        photourl = albumphoto.url(filename=folder)
+        photourl = userfiles.url(filename=folder)
         #追加对象
         photo.url = photourl
     temp = render_template('album_browse.html', album=album, face_url=face_url,
@@ -517,7 +514,7 @@ def user_album_favor():
             title_uuid = love_album.photos[0].name
             folder = (os.path.split(title_uuid))[0] + '/' + title_photo
             global titleurl
-            titleurl = albumphoto.url(filename=folder)
+            titleurl = userfiles.url(filename=folder)
 
         except:
             pass
@@ -543,7 +540,7 @@ def user_album_mine():
             title_uuid = album.photos[0].name
             folder = (os.path.split(title_uuid))[0] + '/' + title_photo
             global titleurl
-            titleurl = albumphoto.url(filename=folder)
+            titleurl = userfiles.url(filename=folder)
 
         except:
             pass
@@ -767,7 +764,7 @@ def about_me(page):
         if user_name:
             about_msg = form.about_msg.data
             user = User.query.filter_by(name=session.get('user_name')).first()
-            user_face_url = facephoto.url(user.uuid + '/' + user.face)
+            user_face_url = userfiles.url(user.uuid + '/' + user.face)
             aboutmsg = AboutMsg(content=about_msg, user_name=user_name, user_face_url=user_face_url)
             db.session.add(aboutmsg)
             db.session.commit()
